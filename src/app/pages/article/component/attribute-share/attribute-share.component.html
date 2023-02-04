@@ -1,1 +1,21 @@
-<p>attribute-share works!</p>
+<div class="bg-white h-full relative w-40 shadow-sm">
+  <div class="absolute top-28 right-10">
+    <div class="fixed flex flex-col space-y-4">
+      <a (click)="share('https://www.facebook.com/sharer/sharer.php?u=')">
+        <img class="w-6 cursor-pointer hover:bg-gray-100 hover:rounded-full" src="assets/icon/facebook.png"
+             alt="facebook">
+      </a>
+      <a (click)="share('https://twitter.com/share?url=')">
+        <img class="w-6 cursor-pointer hover:bg-gray-100 hover:rounded-full" src="assets/icon/twitter.png"
+             alt="twitter">
+      </a>
+      <a (click)="share('https://instagram.com/share?url=')">
+        <img class="w-6 cursor-pointer hover:bg-gray-100 hover:rounded-full" src="assets/icon/instagram.png"
+             alt="instagram">
+      </a>
+    </div>
+  </div>
+  <div class="absolute top-14 right-[3.2rem]">
+    <img (click)="onTop()" class="cursor-pointer fixed w-12" src="assets/icon/arrow.png" alt="arrow">
+  </div>
+</div>

@@ -1,1 +1,13 @@
-<p>article works!</p>
+<div class="flex">
+  <app-attribute-share class="hidden sm:block" [slug]="slugParam"></app-attribute-share>
+
+  <div class="block sm:flex w-full">
+    <div class="bg-white sm:w-[75%] w-full p-6">
+        <markdown lineNumbers clipboard class="variable-binding prose prose-slate" [data]="getArticle?.content"></markdown>
+    </div>
+
+    <div class="sm:w-[25%] w-full bg-gray-100 p-4">
+      <app-related-articles></app-related-articles>
+    </div>
+  </div>
+</div>

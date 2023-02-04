@@ -1,1 +1,151 @@
-<p>write works!</p>
+<div id="dropdownNavbar"
+     class="hidden bg-white text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44">
+  <ul class="py-1" aria-labelledby="dropdownLargeButton">
+    <li>
+      <a (click)="stateConfig = 'create'"
+         class="cursor-pointer text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Create Article</a>
+    </li>
+    <li>
+      <a (click)="stateConfig = 'edit'" class="cursor-pointer text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Edit
+        Article</a>
+    </li>
+    <li>
+      <a (click)="stateConfig = 'remove'"
+         class="cursor-pointer text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Remove Article</a>
+    </li>
+  </ul>
+</div>
+<div class="max-w-3xl mx-auto relative h-full">
+
+  <div class="flex justify-start">
+    <h1 class="text-2xl font-bold text-center text-white capitalize py-4">Configure somethings</h1>
+  </div>
+
+  <div class="flex justify-end space-x-2">
+    <button *ngIf="stateConfig === 'create'" type="submit" form="createForm"
+            class="disabled:bg-gray-600 bg-green-500 py-1 px-6 text-white font-medium rounded-md my-4">
+      Publish
+    </button>
+    <button *ngIf="stateConfig === 'edit'" type="submit" form="editForm"
+            class="disabled:bg-gray-600 bg-green-500 py-1 px-6 text-white font-medium rounded-md my-4 ">
+      Publish
+    </button>
+    <button *ngIf="stateConfig === 'edit' || stateConfig === 'create'" (click)="isPreview = !isPreview"
+            class="bg-gray-100 py-1 px-6 text-green-500 font-medium rounded-md my-4"
+            type="button">Preview
+    </button>
+    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+            class="bg-uk-yellow-4 items-center py-1 px-6 text-white font-medium rounded-md my-4 flex capitalize">{{stateConfig === '' ? 'Article config' : stateConfig}}
+      <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+      </svg>
+    </button>
+  </div>
+
+
+  <!--  // form create article-->
+  <ng-container *ngIf="stateConfig === 'create'">
+    <form [formGroup]="myForm" (ngSubmit)="publish(myForm)" class="flex flex-col space-y-4 pb-10" id="createForm">
+      <div class="flex flex-col">
+        <label class="text-green-500 font-normal mb-1" for="title">Judul</label>
+        <input name="title" id="title" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+               placeholder="Masukan Judul Article" formControlName="title">
+      </div>
+      <div class="flex flex-col">
+        <label class="text-green-500 font-normal mb-1" for="description">Descripsi</label>
+        <input name="description" id="description" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+               placeholder="Masukan Desksripsi article" formControlName="description">
+      </div>
+      <div class="flex flex-col">
+        <label class="text-green-500 font-normal mb-1" for="category">Kategori</label>
+        <input name="category" id="category" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+               placeholder="Masukan Jenis Kategori" formControlName="category">
+      </div>
+      <div class="flex flex-col">
+        <label class="text-green-500 font-normal mb-1" for="author">Nama Penulis</label>
+        <input name="author" id="author" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+               placeholder="Masukan Nama anda" formControlName="author">
+      </div>
+      <div class="flex flex-col">
+        <label class="text-green-500 font-normal mb-1" for="content">Content Article</label>
+        <textarea name="content" id="content" class="variable-textarea" formControlName="content" #content></textarea>
+      </div>
+
+      <!--    <input #imageInput-->
+      <!--           type="file"-->
+      <!--           accept="image/*"-->
+      <!--           (change)="processFile(imageInput)">-->
+
+      <!--      <div *ngIf="selectedFile" class="w-[80%] h-fit mx-auto rounded-md">-->
+      <!--        <img [src]="selectedFile.src" [alt]="selectedFile.file.name">-->
+      <!--      </div>-->
+
+    </form>
+
+    <div *ngIf="!isPreview" class="bg-white w-full rounded p-4 mt-4">
+      <markdown lineNumbers clipboard class="variable-binding prose prose-slate" [data]="content.value!"></markdown>
+    </div>
+  </ng-container>
+
+  <!--  // form edit article-->
+  <ng-container *ngIf="stateConfig === 'edit'">
+    <div class="mb-4 block">
+      <label for="title_edit" class="text-green-500 font-normal mb-1">Article</label>
+      <select [(ngModel)]="selectedArticle" (ngModelChange)="onChangeEdit($event)" id="title_edit"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option selected>Pilih Article yang akan di Edit</option>
+        <option *ngFor="let item of getArticles" [value]="item._id">{{item.title}}</option>
+      </select>
+    </div>
+    <ng-container *ngIf="selectedArticle">
+      <form [formGroup]="myForm" (ngSubmit)="publish(myForm)" class="flex flex-col space-y-4 pb-10" id="editForm">
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="update_title">Judul</label>
+          <input name="update_title" id="update_title" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+                 placeholder="Masukan Judul Article" formControlName="title">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="update_description">Descripsi</label>
+          <input name="update_description" id="update_description" class="bg-white rounded-[5px] w-full py-1 px-2"
+                 type="text" placeholder="Masukan Desksripsi article" formControlName="description">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="update_category">Kategori</label>
+          <input name="update_category" id="update_category" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+                 placeholder="Masukan Jenis Kategori" formControlName="category">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="update_author">Nama Penulis</label>
+          <input name="update_author" id="update_author" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+                 placeholder="Masukan Nama anda" formControlName="author">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="update_content">Content Article</label>
+          <textarea name="update_content" id="update_content" class="variable-textarea" formControlName="content"
+                    #content></textarea>
+        </div>
+      </form>
+    </ng-container>
+    <!--  <div *ngIf="!isPreview" class="bg-white w-full rounded p-4 mt-4">-->
+    <!--    <markdown lineNumbers clipboard class="variable-binding prose prose-slate" [data]="content.value!"></markdown>-->
+    <!--  </div>-->
+  </ng-container>
+
+  <!--  // form remove article-->
+  <ng-container *ngIf="stateConfig === 'remove'">
+    <label for="countries" class="block text-green-500 font-normal mb-1">Remove Article</label>
+    <select [(ngModel)]="selectedRemoveArticle" (ngModelChange)="onChange($event)" id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <option selected>Pilih Article yang akan di hapus</option>
+      <option *ngFor="let item of getArticles" [value]="item._id">{{item.title}}</option>
+    </select>
+
+    <button (click)="onRemove()" class="bg-uk-danger-3 py-1 px-6 text-white font-medium rounded-md my-4" type="button">
+      Hapus
+    </button>
+  </ng-container>
+
+
+</div>

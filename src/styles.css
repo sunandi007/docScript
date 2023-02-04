@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'prismjs/themes/prism-okaidia.css';
+@import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+@import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
