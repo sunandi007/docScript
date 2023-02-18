@@ -15,7 +15,7 @@ export class RelatedArticlesComponent {
   constructor(private repo: SubjectRepository) {
   }
 
-  get getNewArticleRelated(): ArticlesModel[] {
+  get getNewArticleRelated(): ArticlesModel[] | undefined {
     return this.repo.getNewArticle()
   }
 }

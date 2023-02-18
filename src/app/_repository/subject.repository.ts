@@ -1,53 +1,68 @@
 import {Injectable} from "@angular/core";
-import {SubjectListModel} from "../_model/subject-list.model";
-import {StaticDataSource} from "../_model/dataSource";
 import {DataService} from "../_service/data.service";
-import {Observable} from "rxjs";
 import {ArticlesModel} from "../_model/articles.model";
+import {CommonApiServiceService} from "../_service/common-api.service";
+import {DefaultResponseModel} from "../_model/subject-list.model";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectRepository {
+  private mainData: any
   private articles: ArticlesModel[] = [];
   private locator = (p: ArticlesModel, slug?: string) => p.slug == slug
   private locatorId = (p: ArticlesModel, id?: string) => p._id == id
 
-  constructor(private service: DataService) {
-    service.getArticles().subscribe(res => {
-      this.articles = res
+  constructor(private commonService: CommonApiServiceService,
+              private router: Router) {
+    commonService.get<ArticlesModel[]>('articles', true).subscribe(res => {
+      this.mainData = res
+      this.articles = this.mainData?.data
     })
   }
 
-  getArticles(): ArticlesModel[]  {
+  getArticles(): ArticlesModel[] {
     return this.articles
   }
 
-  getArticleBySlug(slug: string): ArticlesModel | undefined  {
-    return this.articles.find(an =>  this.locator(an, slug))
+  getArticleBySlug(slug: string): ArticlesModel | undefined {
+    if (this.articles) {
+      return this.articles.find(an => this.locator(an, slug))
+    }
+    return undefined
   }
 
-  getArticleById(id: string): ArticlesModel | undefined  {
-    return this.articles.find(an =>  this.locatorId(an, id))
+  getArticleById(id: string): ArticlesModel | undefined {
+    if (this.articles) {
+      return this.articles.find(an => this.locatorId(an, id))
+    }
+    return undefined
   }
 
-  getNewArticle(): ArticlesModel[] {
-    return this.articles.slice(0, 3)
+  getNewArticle(): ArticlesModel[] | undefined {
+    if (this.articles) {
+      return this.articles.slice(0, 3)
+    }
+    return undefined
   }
 
-  saveArticle(article: ArticlesModel) {
+  async saveArticle(article: ArticlesModel) {
     if (article) {
-      this.service.createArticle(article).subscribe()
+      await this.commonService.post<ArticlesModel>('articles', article, true, true).subscribe()
+      this.router.navigateByUrl('/article').then()
     }
   }
 
   updateArticle(id: string, article: ArticlesModel) {
     if (article) {
-      this.service.updateArticle(id, article).subscribe()
+      this.commonService.patch<ArticlesModel>(`articles/${id}`, article, true, true).subscribe()
     }
   }
 
   removeArticleById(articleId: string) {
-    this.service.removeArticle(articleId).subscribe()
+    if (articleId) {
+      this.commonService.delete(`articles/${articleId}`, false, true).subscribe()
+    }
   }
 }

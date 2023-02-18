@@ -7,6 +7,7 @@ import {CommonModule} from "@angular/common";
 import {ArticlesModel} from "../../_model/articles.model";
 import {SubjectRepository} from "../../_repository/subject.repository";
 import {ActivatedRoute} from "@angular/router";
+import {AlertService} from "../../shared/alert/alert.service";
 
 @Component({
   standalone: true,
@@ -25,8 +26,10 @@ export class ArticleComponent {
   slugParam: string = ''
 
   constructor(private repo: SubjectRepository,
+              private alert: AlertService,
               private route: ActivatedRoute) {
     this.slugParam = route.snapshot.params['slug']
+    // this.alert.open({message: 'Article', color: 'success'})
   }
 
   get getArticle(): ArticlesModel | undefined {

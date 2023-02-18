@@ -10,12 +10,20 @@ import 'prismjs';
 import 'prismjs/components/prism-typescript.min.js';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.js';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpConfigInterceptor} from "./app/_interceptor/http-config-interceptor";
 
 if (environment.production) {
   enableProdMode();
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [importProvidersFrom(AppRoutingModule, MarkdownModule.forRoot(), HttpClientModule)]
+  providers: [
+    importProvidersFrom(AppRoutingModule, MarkdownModule.forRoot(), HttpClientModule),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpConfigInterceptor,
+      multi: true
+    }
+  ]
 }).catch(err => console.error(err));

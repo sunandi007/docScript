@@ -1,0 +1,14 @@
+<div class="max-w-[50%] mx-auto top-42 z-50 fixed left-0 right-0 pt-[140px]"  [ngClass]="this.datas[0]?.color == undefined ? 'hidden' : ''" >
+  <div *ngFor="let data of datas; let i = index">
+    <div
+      [ngClass]="away[i].show ? 'animate__backInDown' : 'animate__fadeOut'"
+      class="{{
+        away[i].bgColor
+      }} text-white py-2 rounded-md "
+    >
+      <div class="flex">
+        <p class="mx-auto text-red-50">{{ data.message }}</p>
+      </div>
+    </div>
+  </div>
+</div>

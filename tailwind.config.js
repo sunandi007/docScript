@@ -417,6 +417,7 @@ module.exports = {
         '"Noto Color Emoji"',
       ],
       serif: [
+        "Source Serif Pro",
         "ui-serif",
         "Georgia",
         "Cambria",
@@ -435,6 +436,7 @@ module.exports = {
         "monospace",
       ],
       roboto: "'Roboto', sans-serif",
+      Source: "'Source Serif Pro', serif",
       poppins: "'Poppins', sans-serif",
     },
     fontSize: {

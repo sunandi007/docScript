@@ -5,6 +5,7 @@ import {MarkdownModule} from "ngx-markdown";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {SubjectRepository} from "../../_repository/subject.repository";
 import {ArticlesModel} from "../../_model/articles.model";
+import {AlertService} from "../../shared/alert/alert.service";
 
 class ImageSnippet {
   pending: boolean = false;
@@ -39,10 +40,12 @@ export class WriteComponent implements OnInit{
   selectedArticleSlug: string = ''
 
   isPreview: boolean = true;
+  toggleDropdown: boolean = false;
 
   constructor(private fb: FormBuilder,
-              private repo: SubjectRepository) {
-
+              private repo: SubjectRepository,
+              private alert: AlertService) {
+    this.stateConfig = 'create';
   }
 
   ngOnInit() {
@@ -57,7 +60,6 @@ export class WriteComponent implements OnInit{
   }
 
   publish(form: FormGroup) {
-    console.log('masuk')
     if (this.stateConfig === 'create') {
     this.repo.saveArticle(form.value)
     } else if (this.stateConfig === 'edit') {

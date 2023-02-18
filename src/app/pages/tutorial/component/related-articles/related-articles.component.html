@@ -1,7 +1,7 @@
 <div class="bg-[#14213d] rounded-lg p-4 text-white fixed top-32 w-[20%] right-4">
   <h2 class="font-bold text-[#fca311] text-lg border-b-1 pb-2">Article Terbaru</h2>
   <div class="flex flex-col space-y-2 pt-2" *ngFor="let item of getNewArticleRelated">
-    <div class="flex object-center">
+    <div class="flex justify-between object-center">
       <div class="flex flex-col">
         <h3 class="text-ellipsis whitespace-pre-wrap break-keep text-limited">
           {{item.title}}
@@ -10,18 +10,5 @@
       </div>
       <img class="w-[6rem] h-[4rem] rounded-lg object-cover" [src]="item.image" alt="text">
     </div>
-<!--    <div class="flex">-->
-<!--      <div class="flex flex-col">-->
-<!--        <h3 class="text-ellipsis whitespace-pre-wrap break-keep text-limited">Tutorial membuat Rest API dengan Nest</h3>-->
-<!--        <p class="text-ellipsis text-gray-400 whitespace-pre-wrap break-keep subtext-limited">25 Nov 20022 - Baca 5 menit</p>-->
-<!--      </div>-->
-<!--      <img class="w-[6rem] h-[4rem] rounded-lg object-cover" src="https://www.petanikode.com/img/typescript-pemula/typescript-superset-javascript.avif" alt="text">-->
-<!--    </div>-->
-<!--    <div class="flex">-->
-<!--      <div class="flex flex-col">-->
-<!--        <h3 class="text-ellipsis whitespace-pre-wrap break-keep text-limited">Tutorial Menghubungkan Databse</h3>-->
-<!--        <p class="text-ellipsis text-gray-400 whitespace-pre-wrap break-keep subtext-limited">25 Nov 20022 - Baca 5 menit</p>-->
-<!--      </div>-->
-<!--      <img class="w-[6rem] h-[4rem] rounded-lg object-cover" src="https://www.petanikode.com/img/cover/tailwind-image-zoom.png" alt="text">    </div>-->
-  </div>
+ </div>
 </div>

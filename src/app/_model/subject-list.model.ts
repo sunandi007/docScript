@@ -9,6 +9,6 @@ export class ChildSubjectModel {
 
 
 export class DefaultResponseModel {
-  constructor(public data: [], public message?: string, public successCode?: string, public errorCode?: string) {}
+  constructor(public data: any, public message?: string, public successCode?: string, public errorCode?: string) {}
 }
 
