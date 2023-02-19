@@ -44,34 +44,15 @@
   <h2 class="text-left text-white font-bold text-4xl font-bold">Baca Juga article kami</h2>
   <div class="grid grid-cols-4 gap-4 my-4">
     <ng-container *ngFor="let item of getArticles">
-      <a [routerLink]="'article/' + item.slug" class="bg-gray-600 rounded-lg shadow-md p-4 space-y-2 cursor-pointer">
+      <a [routerLink]="'article/' + item.slug" class="bg-gray-600 rounded-lg shadow-md p-4 space-y-1 cursor-pointer">
         <img class="rounded-lg w-full h-[7rem]" [src]="item.image" alt="course-javascript">
-        <h2 class="text-left text-white font-bold text-2xl font-bold capitalize">{{item.title}}</h2>
+        <h3
+          class="text-left text-white font-bold text-xl font-bold capitalize text-ellipsis whitespace-pre-wrap break-keep text-limited">{{item.title}}</h3>
         <p class="text-left text-gray-300 font-thin text-md">{{item.description}}</p>
-        <div class="flex justify-between items-center">
-          <p class="text-left text-gray-400 font-thin text-sm capitalize">{{item.author}}</p>
-          <img src="assets/icon/dot-menu.svg" alt="three_dots" class="w-[15px] h-[15px]">
-        </div>
       </a>
     </ng-container>
   </div>
 </div>
-          <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0 font-medium flex items-center justify-between w-full md:w-auto">Dropdown <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
-
-
-<div id="dropdownNavbar" class="hidden bg-white text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44">
-  <ul class="py-1" aria-labelledby="dropdownLargeButton">
-    <li>
-      <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
-    </li>
-    <li>
-      <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</a>
-    </li>
-    <li>
-      <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Earnings</a>
-    </li>
-  </ul>
-  <div class="py-1">
-    <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
-  </div>
+<div class="flex justify-center">
+  <button routerLink="/article" class="text-xl text text-center bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-md py-1 px-4 mb-10 drop-shadow-md">Lihat Article lainnya ...</button>
 </div>

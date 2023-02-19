@@ -1,41 +1,59 @@
 <div class="max-w-3xl mx-auto relative h-full">
 
   <div class="relative inline-block text-left w-full">
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-end">
       <h1 class="text-2xl font-bold text-center text-white capitalize py-4">Configure somethings</h1>
-      <div class="flex justify-end space-x-2"  (click)="toggleDropdown = !toggleDropdown">
-        <button *ngIf="stateConfig === 'create' || stateConfig === ''" type="submit" form="createForm"
-                class="disabled:bg-gray-600 bg-green-500 py-1 px-6 text-white font-medium rounded-md my-4">
-          Publish
-        </button>
-        <button *ngIf="stateConfig === 'edit'" type="submit" form="editForm"
-                class="disabled:bg-gray-600 bg-green-500 py-1 px-6 text-white font-medium rounded-md my-4 ">
-          Publish
-        </button>
-        <button *ngIf="stateConfig === 'edit' || stateConfig === 'create' || stateConfig === ''" (click)="isPreview = !isPreview"
-                class="bg-gray-100 py-1 px-6 text-green-500 font-medium rounded-md my-4"
-                type="button">Preview
-        </button>
-<!--        <button class="bg-uk-yellow-4 items-center py-1 px-6 text-white font-medium rounded-md my-4 flex capitalize whitespace-nowrap">-->
-<!--          {{stateConfig === '' ? 'Article config' : stateConfig}}-->
-<!--          <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
-<!--            <path fill-rule="evenodd"-->
-<!--                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"-->
-<!--                  clip-rule="evenodd"></path>-->
-<!--          </svg>-->
-<!--        </button>-->
+      <div class="flex flex-col">
+        <div class="flex justify-end space-x-2" (click)="toggleDropdown = !toggleDropdown">
+          <button *ngIf="stateConfig === 'create' || stateConfig === ''" type="submit" form="createForm"
+                  class="disabled:bg-gray-600 bg-green-500 py-1 px-6 text-white font-medium rounded-md my-4">
+            Publish
+          </button>
+          <button *ngIf="stateConfig === 'edit'" type="submit" form="editForm"
+                  class="disabled:bg-gray-600 bg-green-500 py-1 px-6 text-white font-medium rounded-md my-4 ">
+            Publish
+          </button>
+          <button
+            class="bg-uk-yellow-4 items-center py-1 px-6 text-white font-medium rounded-md my-4 flex capitalize whitespace-nowrap">
+            {{stateConfig === '' ? 'Article config' : stateConfig}}
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button *ngIf="(stateConfig === 'edit' || stateConfig === 'create' || stateConfig === '') || !firstForm"
+                  (click)="isPreview = !isPreview"
+                  [class.bg-gray-400]="!isPreview"
+                  class="bg-gray-100 p-2 text-green-500 font-medium rounded-full my-4 w-fit"
+                  type="button">
+            <img class="w-5" src="assets/icon/preview.svg" alt="preview">
+          </button>
+          <button *ngIf="stateConfig === 'edit' || stateConfig === 'create' || stateConfig === ''"
+                  (click)="isInfo = !isInfo"
+                  [class.bg-gray-400]="isInfo"
+                  class="bg-gray-100 p-2 text-green-500 font-medium rounded-full my-4 w-fit"
+                  type="button">
+            <img class="w-5" src="assets/icon/info.svg" alt="info">
+          </button>
+        </div>
       </div>
     </div>
 
     <ng-container *ngIf="toggleDropdown">
-      <div class="absolute right-0 top-12 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+      <div
+        class="absolute right-0 top-12 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
         <ul class="py-1" aria-labelledby="dropdownLargeButton">
           <li>
             <a (click)="stateConfig = 'create'; toggleDropdown = false"
                class="cursor-pointer text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Create Article</a>
           </li>
           <li>
-            <a (click)="stateConfig = 'edit'; toggleDropdown = false" class="cursor-pointer text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Edit
+            <a (click)="stateConfig = 'edit'; toggleDropdown = false"
+               class="cursor-pointer text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Edit
               Article</a>
           </li>
           <li>
@@ -50,27 +68,36 @@
   <!--  // form create article-->
   <ng-container *ngIf="stateConfig === 'create' || stateConfig === ''">
     <form [formGroup]="myForm" (ngSubmit)="publish(myForm)" class="flex flex-col space-y-4 pb-10" id="createForm">
-      <div class="flex flex-col">
-        <label class="text-green-500 font-normal mb-1" for="title">Judul</label>
-        <input name="title" id="title" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
-               placeholder="Masukan Judul Article" formControlName="title">
+      <div [class.hidden]="!firstForm">
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="title">Judul</label>
+          <input name="title" id="title" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+                 placeholder="Masukan Judul Article" formControlName="title">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="description">Descripsi</label>
+          <input name="description" id="description" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+                 placeholder="Masukan Desksripsi article" formControlName="description">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="category">Kategori</label>
+          <input name="category" id="category" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+                 placeholder="Masukan Jenis Kategori" formControlName="category">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-green-500 font-normal mb-1" for="author">Nama Penulis</label>
+          <input name="author" id="author" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
+                 placeholder="Masukan Nama anda" formControlName="author">
+        </div>
+
+        <div class="flex justify-center">
+          <button (click)="firstForm = false"
+                  class="text-xl text text-center bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-md py-1 px-4 mb-10 drop-shadow-md">
+            Selanjutnya
+          </button>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <label class="text-green-500 font-normal mb-1" for="description">Descripsi</label>
-        <input name="description" id="description" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
-               placeholder="Masukan Desksripsi article" formControlName="description">
-      </div>
-      <div class="flex flex-col">
-        <label class="text-green-500 font-normal mb-1" for="category">Kategori</label>
-        <input name="category" id="category" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
-               placeholder="Masukan Jenis Kategori" formControlName="category">
-      </div>
-      <div class="flex flex-col">
-        <label class="text-green-500 font-normal mb-1" for="author">Nama Penulis</label>
-        <input name="author" id="author" class="bg-white rounded-[5px] w-full py-1 px-2" type="text"
-               placeholder="Masukan Nama anda" formControlName="author">
-      </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col" [class.hidden]="firstForm || !isPreview">
         <label class="text-green-500 font-normal mb-1" for="content">Content Article</label>
         <textarea name="content" id="content" class="variable-textarea" formControlName="content" #content></textarea>
       </div>
@@ -149,5 +176,32 @@
     </button>
   </ng-container>
 
-
 </div>
+
+<ng-container *ngIf="isInfo">
+  <div class="fixed right-4 top-28 ">
+    <div class="relative w-[22rem]">
+      <div class="absolute bg-white rounded-md p-3">
+        <div class="flex justify-start pb-1 border-b-1">
+          <div class="w-40p pr-4 border-r-1">
+            <p class="text-black font-Source font-bold">Element</p>
+          </div>
+          <div class="pl-4">
+            <p class="text-black font-Source font-bold">Markdown Syntax</p>
+          </div>
+        </div>
+        <div class="flex justify-start">
+          <div class="flex flex-col w-auto overflow-y-scroll h-52">
+            <ng-container *ngFor="let item of cheatSheetMarkdown">
+              <div class="flex justify-start">
+                <p class="text-black font-Source font-semibold pr-4 border-r-1 w-40p">{{item.element}}</p>
+                <markdown lineNumbers clipboard class="variable-binding prose prose-slate pl-4"
+                          [data]="item.syntax!"></markdown>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

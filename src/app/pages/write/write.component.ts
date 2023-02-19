@@ -11,7 +11,8 @@ class ImageSnippet {
   pending: boolean = false;
   status: string = 'init';
 
-  constructor(public src: string, public file: File) {}
+  constructor(public src: string, public file: File) {
+  }
 }
 
 
@@ -29,7 +30,7 @@ class ImageSnippet {
   styleUrls: ['./write.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class WriteComponent implements OnInit{
+export class WriteComponent implements OnInit {
   @ViewChild('createForm') documentEditForm!: FormGroup;
 
   myForm!: FormGroup;
@@ -38,9 +39,35 @@ export class WriteComponent implements OnInit{
   selectedArticle: string = ''
   selectedRemoveArticle: string = ''
   selectedArticleSlug: string = ''
+  firstForm: boolean = true;
 
   isPreview: boolean = true;
+  isInfo: boolean = false;
   toggleDropdown: boolean = false;
+
+  cheatSheetMarkdown = [
+    { element: 'Heading', syntax: '# # H1'},
+    { element: '', syntax: '## ## H2'},
+    { element: '', syntax: '### ### H3'},
+    { element: 'Bold', syntax: '**bold text**'},
+    { element: 'Italic', syntax: '*italicized text*'},
+    { element: 'Blockquote', syntax: '> blockquote'},
+    { element: 'Ordered List', syntax: '1. First item'},
+    { element: '', syntax: '2. Second item'},
+    { element: '', syntax: '3. Third item'},
+    { element: 'Unordered List', syntax: '- First item'},
+    { element: '', syntax: '- Second item'},
+    { element: '', syntax: '- Third item'},
+    { element: 'Code', syntax: '`code`'},
+    { element: 'Horizontal Rule', syntax: '---'},
+    { element: 'Link', syntax: '[title](https://www.example.com)'},
+    { element: 'Image', syntax: '![alt text](assets/icon/twitter.svg)'},
+    { element: '', syntax: '```![alt text](image.png)```'},
+    { element: 'Highlight', syntax: '==very important words=='},
+    { element: 'Strikethrough', syntax: '~~The world is flat.~~'},
+    { element: 'Emoji', syntax: 'That is so funny! :tent:'},
+    { element: 'Code Block', syntax: '```{ "firstName": "John" }```'},
+  ]
 
   constructor(private fb: FormBuilder,
               private repo: SubjectRepository,
@@ -61,7 +88,7 @@ export class WriteComponent implements OnInit{
 
   publish(form: FormGroup) {
     if (this.stateConfig === 'create') {
-    this.repo.saveArticle(form.value)
+      this.repo.saveArticle(form.value)
     } else if (this.stateConfig === 'edit') {
       this.repo.updateArticle(this.selectedArticle, form.value)
     }
