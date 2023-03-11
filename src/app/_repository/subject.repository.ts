@@ -1,9 +1,7 @@
 import {Injectable} from "@angular/core";
-import {DataService} from "../_service/data.service";
 import {ArticlesModel} from "../_model/articles.model";
 import {CommonApiServiceService} from "../_service/common-api.service";
-import {DefaultResponseModel} from "../_model/subject-list.model";
-import { Router } from "@angular/router";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -49,20 +47,22 @@ export class SubjectRepository {
 
   async saveArticle(article: ArticlesModel) {
     if (article) {
-      await this.commonService.post<ArticlesModel>('articles', article, true, true).subscribe()
-      this.router.navigateByUrl('/article').then()
+      let response = await this.commonService.post<ArticlesModel>('articles', article, true, true).subscribe(
+        res => res ? this.router.navigateByUrl('/article').then() : undefined)
+      response.unsubscribe()
     }
   }
 
-  updateArticle(id: string, article: ArticlesModel) {
+  async updateArticle(id: string, article: ArticlesModel) {
     if (article) {
-      this.commonService.patch<ArticlesModel>(`articles/${id}`, article, true, true).subscribe()
+      await this.commonService.patch<ArticlesModel>(`articles/${id}`, article, true, true).subscribe()
+      this.router.navigateByUrl('/article').then()
     }
   }
 
   removeArticleById(articleId: string) {
     if (articleId) {
-      this.commonService.delete(`articles/${articleId}`, false, true).subscribe()
+      this.commonService.delete(`articles/${articleId}`).subscribe()
     }
   }
 }
