@@ -5,6 +5,7 @@
       <h3 class="font-normal text-xl text-gray-800">
         Pelajari hal baru dan temukan hal menarik dalam proses belajarmu.
       </h3>
+      <p>ini test acunk</p>
     </div>
     <img width="400" height="400" src="assets/icon/img-landingpage.svg" alt="main-img">
   </div>
@@ -16,22 +17,22 @@
   <div class="grid grid-cols-3 gap-4 my-4">
     <div routerLink="course/javascript" class="bg-gray-600 rounded-lg shadow-md p-4 space-y-2 cursor-pointer">
       <img class="rounded-lg w-20 h-16" src="https://miro.medium.com/max/1400/1*UvWOnSlWP7AbbOtSVUeHMg.png"
-           alt="course-javascript">
+        alt="course-javascript">
       <h2 class="text-left text-white font-bold text-2xl font-bold">Javascript Dasar</h2>
       <p class="text-left text-gray-300 font-normal text-md font-bold">Di tutorial ini kamu akan belajar dasar-dasar
         Tailwind CSS seperti: Apa itu Tailwind? Mengapa sih pakai Tailwind? dan gimana cara pakai Tailwind?</p>
     </div>
     <div class="bg-gray-600 rounded-lg shadow-md p-4 space-y-2 cursor-pointer">
       <img class="rounded-lg w-20 h-16"
-           src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/CSS3_logo.svg/800px-CSS3_logo.svg.png"
-           alt="course-javascript">
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/CSS3_logo.svg/800px-CSS3_logo.svg.png"
+        alt="course-javascript">
       <h2 class="text-left text-white font-bold text-2xl font-bold">Javascript Dasar</h2>
       <p class="text-left text-gray-300 font-normal text-md font-bold">Di tutorial ini kamu akan belajar dasar-dasar
         Tailwind CSS seperti: Apa itu Tailwind? Mengapa sih pakai Tailwind? dan gimana cara pakai Tailwind?</p>
     </div>
     <div class="bg-gray-600 rounded-lg shadow-md p-4 space-y-2 cursor-pointer">
       <img class="rounded-lg w-20 h-16" src="https://miro.medium.com/max/1400/1*UvWOnSlWP7AbbOtSVUeHMg.png"
-           alt="course-javascript">
+        alt="course-javascript">
       <h2 class="text-left text-white font-bold text-2xl font-bold">Javascript Dasar</h2>
       <p class="text-left text-gray-300 font-normal text-md font-bold">Di tutorial ini kamu akan belajar dasar-dasar
         Tailwind CSS seperti: Apa itu Tailwind? Mengapa sih pakai Tailwind? dan gimana cara pakai Tailwind?</p>
@@ -47,12 +48,15 @@
       <a [routerLink]="'article/' + item.slug" class="bg-gray-600 rounded-lg shadow-md p-4 space-y-1 cursor-pointer">
         <img class="rounded-lg w-full h-[7rem]" [src]="item.image" alt="course-javascript">
         <h3
-          class="text-left text-white font-bold text-xl font-bold capitalize text-ellipsis whitespace-pre-wrap break-keep text-limited">{{item.title}}</h3>
+          class="text-left text-white font-bold text-xl font-bold capitalize text-ellipsis whitespace-pre-wrap break-keep text-limited">
+          {{item.title}}</h3>
         <p class="text-left text-gray-300 font-thin text-md">{{item.description}}</p>
       </a>
     </ng-container>
   </div>
 </div>
 <div class="flex justify-center">
-  <button routerLink="/article" class="text-xl text text-center bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-md py-1 px-4 mb-10 drop-shadow-md">Lihat Article lainnya ...</button>
+  <button routerLink="/article"
+    class="text-xl text text-center bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-md py-1 px-4 mb-10 drop-shadow-md">Lihat
+    Article lainnya ...</button>
 </div>
